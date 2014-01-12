@@ -1,0 +1,15 @@
+{
+    "name": "eino_saarela_rossi/svg",
+    "description": "Svg library",
+    "license": "GPL",
+    "keywords": [
+        "svg"
+    ],
+    "homepage": "https://bitbucket.org/eino_saarela_rossi/svg",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    }
+}
