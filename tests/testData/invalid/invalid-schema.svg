@@ -5,7 +5,7 @@
      xmlns="http://www.w3.org/2000/svg">
   <desc>Well formed SVG file</desc>
     <rect x="50px" y="50px" width="200px" height="200px"
-          fill="red" stroke="none"/>
+          fill="red" direction="foo" stroke="none"/>
     
   <!-- Show outline of canvas using 'rect' element -->
   <rect x="2px" y="2px" width="296px" height="296px"

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ENTITY % Asuuri.svg.qname "asuuri:parameters" >
+
+<!ENTITY % SVG.svg.content
+    "( asuuri:parameters | %SVG.Description.class; | %SVG.Animation.class; %SVG.Structure.class;
+       %SVG.Conditional.class; %SVG.Image.class; %SVG.Style.class;
+       %SVG.Shape.class; %SVG.Text.class; %SVG.Marker.class;
+       %SVG.ColorProfile.class; %SVG.Gradient.class; %SVG.Pattern.class;
+       %SVG.Clip.class; %SVG.Mask.class; %SVG.Filter.class; %SVG.Cursor.class;
+       %SVG.Hyperlink.class; %SVG.View.class; %SVG.Script.class;
+       %SVG.Font.class; %SVG.Extensibility.class; %SVG.svg.extra.content; )*"
+>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://asuuri.net/2014/svg10">
+    <xs:import schemaLocation="SVG.xsd" namespace="http://www.w3.org/2000/svg"/>
+
+</xs:schema>

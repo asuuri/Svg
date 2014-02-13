@@ -1,6 +1,6 @@
 <?php
 
-namespace AsuuriTest\Svg\Model\Svg;
+namespace AsuuriTest\Svg\Model;
 
 use Asuuri\Svg\Model\Svg;
 
@@ -23,6 +23,78 @@ class SvgTest extends \PHPUnit_Framework_TestCase
     {
         $validSvgFilePath = getcwd() . '/non-existing.svg';
 
+        new Svg($validSvgFilePath);
+    }
+
+    public function testCanValidateParameters()
+    {
+        $validSvgFilePath = getcwd() . '/testData/valid/simple-parameters.svg';
+
         $svg = new Svg($validSvgFilePath);
+
+        $this->assertTrue($svg->validate());
+    }
+
+    public function testValidatingParameterWithNoElementIdAttributeReturnsFalse()
+    {
+        $validSvgFilePath = getcwd() . '/testData/invalid/not-defined-elementId.svg';
+
+        $svg = new Svg($validSvgFilePath);
+
+
+        $this->assertFalse($svg->validate());
+
+        $errors = $svg->getErrors(Svg::INCOMPLETE_DEFINITION_ERROR);
+        $this->assertEquals(
+            'elementId not set in parameter declaration, line 22',
+            $errors[0]
+        );
+        $this->assertCount(1, $svg->getErrors());
+    }
+
+    public function testValidatingNonExistingElementIdReturnsFalse()
+    {
+        $validSvgFilePath = getcwd() . '/testData/invalid/non-existing-id.svg';
+
+        $svg = new Svg($validSvgFilePath);
+
+        $this->assertFalse($svg->validate());
+
+        $errors = $svg->getErrors(Svg::MISSING_ELEMENT_ERROR);
+        $this->assertEquals(
+            'Could not find matching svg element with id \'main-text-one\'.',
+            $errors[0]
+        );
+        $this->assertCount(1, $svg->getErrors());
+    }
+
+    public function testValidatingSvgWithSeveralNotUniqueIdsReturnsFalse()
+    {
+        $validSvgFilePath = getcwd() . '/testData/invalid/not-unique-id.svg';
+
+        $svg = new Svg($validSvgFilePath);
+
+        $this->assertFalse($svg->validate());
+        $errors = $svg->getErrors(Svg::MULTIPLE_ID_DEFINITION_ERROR);
+        $this->assertEquals(
+            'Found several elements with the id \'main-text\'.',
+            $errors[0]
+        );
+        $this->assertCount(1, $svg->getErrors());
+    }
+
+    public function testValidatingSvgUnknownParameterTypeReturnsFalse()
+    {
+        $validSvgFilePath = getcwd() . '/testData/invalid/unknown-parameter-type.svg';
+
+        $svg = new Svg($validSvgFilePath);
+
+        $this->assertFalse($svg->validate());
+        $errors = $svg->getErrors(Svg::UNKNOWN_PARAMETER_TYPE_ERROR);
+        $this->assertEquals(
+            'Unknown parameter type for element \'use\'. Line 18',
+            $errors[0]
+        );
+        $this->assertCount(1, $svg->getErrors());
     }
 }
