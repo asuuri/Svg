@@ -58,6 +58,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array('element-text', '\Asuuri\Svg\Parameter\Text'),
+            array('element-group', '\Asuuri\Svg\Parameter\Group'),
+            array('element-rectangle', '\Asuuri\Svg\Parameter\Rectangle'),
         );
     }
 

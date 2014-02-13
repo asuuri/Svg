@@ -8,15 +8,21 @@
     <rect x="50px" y="50px" width="200px" height="200px"
           fill="red" stroke="none"/>
     
-    <rect x="2px" y="2px" width="296px" height="296px" 
+    <rect id="element-rectangle" x="2px" y="2px" width="296px" height="296px" 
           fill="none" stroke="blue" stroke-width="4px" />
     
-    <text id="element-text" x="70" y="150" font-family="Verdana" font-size="55" fill="black">
-        Hello
-    </text>
+    <g id="element-group">
+        <text id="element-text" x="70" y="150" font-family="Verdana" font-size="55" fill="black">
+            Hello
+        </text>
+    </g>
     
     <asuuri:parameters>
         <asuuri:parameter elementId="element-text">
+        </asuuri:parameter>
+        <asuuri:parameter elementId="element-group">
+        </asuuri:parameter>
+        <asuuri:parameter elementId="element-rectangle">
         </asuuri:parameter>
     </asuuri:parameters>
 </svg>
