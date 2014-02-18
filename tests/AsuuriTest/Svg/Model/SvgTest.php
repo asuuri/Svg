@@ -97,4 +97,15 @@ class SvgTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertCount(1, $svg->getErrors());
     }
+
+    public function testGetParametersReturnsAllDefinedParameters()
+    {
+        $validSvgFilePath = getcwd() . '/testData/invalid/unknown-parameter-type.svg';
+
+        $svg = new Svg($validSvgFilePath);
+
+        $parameters = $svg->getParameters();
+
+        $this->assertCount(3, $parameters);
+    }
 }

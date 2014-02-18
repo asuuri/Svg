@@ -7,9 +7,13 @@ use Asuuri\Svg\Parameter\Factory as ParameterFactory;
 class Svg {
 
     const VALIDATION_ERROR = 'Validation error';
+
     const INCOMPLETE_DEFINITION_ERROR = 'Incomplete definition error';
+
     const UNKNOWN_PARAMETER_TYPE_ERROR = 'Unknown parameter type error';
+
     const MULTIPLE_ID_DEFINITION_ERROR = 'Multiple id definition error';
+
     const MISSING_ELEMENT_ERROR = 'Missing element error';
 
     /**
@@ -26,6 +30,11 @@ class Svg {
      * @var \Asuuri\Svg\Parameter\Factory
      */
     protected $parameterFactory = null;
+
+    /**
+     * @var string
+     */
+    protected $parametersXPath = '//asuuri:parameters/asuuri:parameter';
 
     /**
      * @param string $svgFile
@@ -96,11 +105,21 @@ class Svg {
         return $this;
     }
 
-    public function validate()
+    /**
+     * @return \DOMXpath
+     */
+    protected function getXPath()
     {
         $dom = $this->getSvgDom();
         $xpath = new \DOMXpath($dom);
         $xpath->registerNamespace('asuuri', 'http://asuuri.net/2014/svg10');
+
+        return $xpath;
+    }
+
+    public function validate()
+    {
+        $xpath = $this->getXPath();
 
         $result = true;
 
@@ -114,7 +133,7 @@ class Svg {
     private function validateParameters(\DOMXPath $xpath)
     {
         $result = true;
-        $parameters = $xpath->query('//asuuri:parameters/asuuri:parameter');
+        $parameters = $xpath->query($this->parametersXPath);
         foreach($parameters as $parameter) {
             $id = $parameter->getAttribute('elementId');
 
@@ -197,5 +216,22 @@ class Svg {
         }
 
         return $this->errors;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        $xpath = $this->getXPath();
+
+        $parameterElements = $xpath->query($this->parametersXPath);
+        $factory = $this->getParameterFactory();
+        $parameters = array();
+        foreach ($parameterElements as $parameterElement) {
+            $parameters[] = $factory->getParameter($parameterElement);
+        }
+
+        return $parameters;
     }
 }
