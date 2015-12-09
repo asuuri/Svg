@@ -237,7 +237,6 @@ class Svg {
             }
         }
 
-        var_dump($parameters);
         return $parameters;
     }
 }
