@@ -27,7 +27,7 @@ abstract class AbstractParameter implements ParameterInterface
      * @return \DOMElement
      */
     public function getElement() {
-        return $this->node;
+        return $this->element;
     }
 
     /**
@@ -35,7 +35,7 @@ abstract class AbstractParameter implements ParameterInterface
      * @return \Asuuri\Svg\Parameter\Parameter
      */
     public function setElement(\DOMElement $element) {
-        $this->node = $element;
+        $this->element = $element;
 
         return $this;
     }

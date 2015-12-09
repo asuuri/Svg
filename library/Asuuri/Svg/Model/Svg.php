@@ -224,14 +224,20 @@ class Svg {
     public function getParameters()
     {
         $xpath = $this->getXPath();
-
-        $parameterElements = $xpath->query($this->parametersXPath);
-        $factory = $this->getParameterFactory();
         $parameters = array();
-        foreach ($parameterElements as $parameterElement) {
-            $parameters[] = $factory->getParameter($parameterElement);
+
+        if ($this->validateParameters($xpath)) {
+            $parameterElements = $xpath->query($this->parametersXPath);
+            $factory = $this->getParameterFactory();
+
+            foreach ($parameterElements as $parameterElement) {
+                $id = $parameterElement->getAttribute('elementId');
+                $elements = $xpath->query(sprintf('//*[@id=\'%s\']', $id));
+                $parameters[] = $factory->getParameter($elements->item(0));
+            }
         }
 
+        var_dump($parameters);
         return $parameters;
     }
 }
