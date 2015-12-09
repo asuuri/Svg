@@ -120,4 +120,17 @@ class SvgTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('element-text', $parameter->getId());
     }
+
+    public function testGetParameterElementReturnsCorrectElement()
+    {
+        $validSvgFilePath = getcwd() . '/testData/valid/full-parameter-type-set.svg';
+
+        $svg = new Svg($validSvgFilePath);
+
+        $parameters = $svg->getParameters();
+        $parameter = $parameters[0];
+        $element = $parameter->getElement();
+
+        $this->assertInstanceOf('\DOMElement', $element);
+    }
 }
