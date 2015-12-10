@@ -42,6 +42,11 @@ class Svg {
     protected $parametersXPath = '//asuuri:parameters/asuuri:parameter';
 
     /**
+     * @var Array
+     */
+    protected $parameters = null;
+
+    /**
      * @param string $svgFile
      */
     public function __construct($svgFile = null)
@@ -228,8 +233,12 @@ class Svg {
      */
     public function getParameters()
     {
+        if ($this->parameters) {
+            return $this->parameters;
+        }
+
         $xpath = $this->getXPath();
-        $parameters = array();
+        $this->parameters = array();
 
         if ($this->validateParameters($xpath)) {
             $parameterElements = $xpath->query($this->parametersXPath);
@@ -238,11 +247,20 @@ class Svg {
             foreach ($parameterElements as $parameterElement) {
                 $id = $parameterElement->getAttribute('elementId');
                 $elements = $xpath->query(sprintf('//*[@id=\'%s\']', $id));
-                $parameters[] = $factory->getParameter($elements->item(0));
+                $this->parameters[] = $factory->getParameter($elements->item(0));
             }
         }
 
-        return $parameters;
+        return $this->parameters;
+    }
+
+    private function applyParameters()
+    {
+        foreach ($this->getParameters() as $parameter) {
+            $parameter->apply();
+        }
+
+        return $this;
     }
 
     /**
@@ -251,6 +269,8 @@ class Svg {
      */
     public function render(RenderOptions $options)
     {
+        $this->applyParameters();
+
         $svg = $this->svgDom->saveXML();
         $image = new \Imagick();
         $image->readimageblob($svg);

@@ -56,4 +56,14 @@ abstract class AbstractParameter implements ParameterInterface
 
         return $this;
     }
+
+    /**
+     * Apply parameter changes to the SVG
+     * 
+     * @return \Asuuri\Svg\Parameter\AbstractParameter
+     */
+    public function apply()
+    {
+        return $this;
+    }
 }

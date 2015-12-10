@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="300px" height="300px" version="1.1"
      xmlns="http://www.w3.org/2000/svg"
@@ -7,16 +7,16 @@
     <desc>Well formed SVG file</desc>
     <rect x="50px" y="50px" width="200px" height="200px"
           fill="red" stroke="none"/>
-    
-    <rect id="element-rectangle" x="2px" y="2px" width="296px" height="296px" 
+
+    <rect id="element-rectangle" x="2px" y="2px" width="296px" height="296px"
           fill="none" stroke="blue" stroke-width="4px" />
-    
+
     <g id="element-group">
-        <text id="element-text" x="70" y="150" font-family="Verdana" font-size="55" fill="black">
+        <text id="element-text" x="70" y="150" font-size="55" fill="black">
             Hello
         </text>
     </g>
-    
+
     <asuuri:parameters>
         <asuuri:parameter elementId="element-text">
         </asuuri:parameter>
