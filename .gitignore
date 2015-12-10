@@ -3,3 +3,4 @@ composer.lock
 /vendor/
 /tests/reports/
 composer.phar
+phpdox.phar
