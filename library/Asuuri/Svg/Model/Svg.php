@@ -3,6 +3,9 @@
 namespace Asuuri\Svg\Model;
 
 use Asuuri\Svg\Parameter\Factory as ParameterFactory;
+use Asuuri\Svg\Options\Render as RenderOptions;
+use Imagick;
+
 
 class Svg {
 
@@ -15,6 +18,8 @@ class Svg {
     const MULTIPLE_ID_DEFINITION_ERROR = 'Multiple id definition error';
 
     const MISSING_ELEMENT_ERROR = 'Missing element error';
+
+    const FORMAT_PNG = 'png';
 
     /**
      * @var \DOMDocument
@@ -238,5 +243,19 @@ class Svg {
         }
 
         return $parameters;
+    }
+
+    /**
+     * Render image
+     * @param Asuuri\Svg\Options\Render $options Rendering options
+     */
+    public function render(RenderOptions $options)
+    {
+        $svg = $this->svgDom->saveXML();
+        $image = new \Imagick();
+        $image->readimageblob($svg);
+        $image->setImageFormat($options->getFormat());
+
+        return $image->getImageBlob();
     }
 }

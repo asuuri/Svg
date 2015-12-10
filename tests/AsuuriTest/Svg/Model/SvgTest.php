@@ -3,6 +3,7 @@
 namespace AsuuriTest\Svg\Model;
 
 use Asuuri\Svg\Model\Svg;
+use Asuuri\Svg\Options\Render as RenderOptions;
 
 class SvgTest extends \PHPUnit_Framework_TestCase
 {
@@ -132,5 +133,23 @@ class SvgTest extends \PHPUnit_Framework_TestCase
         $element = $parameter->getElement();
 
         $this->assertInstanceOf('\DOMElement', $element);
+    }
+
+    public function testRenderingDefaultImage()
+    {
+        $validSvgFilePath = getcwd() . '/testData/valid/full-parameter-type-set.svg';
+        $validRenderedFilePath = getcwd() . '/testData/valid/full-parameter-type-set.ppm';
+
+        $svg = new Svg($validSvgFilePath);
+        $options = new RenderOptions();
+        $options->setFormat(RenderOptions::FORMAT_PPM);
+        $image = $svg->render($options);
+        $tempFile = '/tmp/rendering_' . md5(rand(0, 999)) . '.ppm';
+
+        file_put_contents($tempFile, $image);
+
+        $this->assertFileEquals($validRenderedFilePath, $tempFile);
+
+        unlink($tempFile);
     }
 }
